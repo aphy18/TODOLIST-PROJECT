@@ -77,24 +77,37 @@
 .button-container {
   border: 1px solid skyblue;
   background-color: blanchedalmond;
-  width: 150px;
+  width: 100px;
   height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 4px;
   transform: scale(0,0);
-  transition: transform 0.6s ease;
+  transition: transform 0.6s ease, width 0.3s ease;
+}
+
+.button-sub-container {
+  /* border: 2px solid black; */
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: width 0.3s ease;
 }
 
 .plus-button {
   background-color: green;
+  transition: transform 0.4s ease;
 }
 
 .exit-button {
   background-color: red;
   transition: transform 0.3s ease-in;
-  /* opacity: 0; */
+  display: inline;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.4s ease;
 }
 
 /* .exit-button {

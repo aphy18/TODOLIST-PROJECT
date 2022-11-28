@@ -11,9 +11,14 @@ function App() {
   let [date, setDate] = useState(null);
   let [error, setError] = useState(false);
   let [errorText, setErrorText] = useState("");
+
+  // onload animation states in order
   let [animate, setAnimate] = useState(false)
   let [welcome, SetWelcome] = useState(true);
   let [header, setHeader] = useState(false);
+
+  // click button state animation
+  let [btn, setBtn] = useState(false);
 
   useEffect(() => {
     let welcomeMsg = document.querySelectorAll(".welcome-message-letter");
@@ -74,21 +79,47 @@ function App() {
   function changeBody(event) {
     let mainBody = document.getElementById("body");
     let todoForm = document.querySelector(".new-todo-form")
-    // let minusButton = document.querySelector(".exit-button")
+    let buttonContainer = document.querySelector(".button-container");
     setNewUser(true);
     mainBody.classList.add("change-body");
-    // minusButton.style.transform = "translateX(100px)";
+    buttonContainer.style.width = "150px";
+    // buttonContainer.style.justifyContent = "space-around";
+    setBtn(true)
   }
+
+  useEffect(() => {
+    let plusButton = document.querySelector(".plus-button");
+    let minusButton = document.querySelector(".exit-button");
+    let subContainer = document.querySelector(".button-sub-container");
+    setTimeout(() => {
+      if (btn === true) {
+        minusButton.style.opacity = "1";
+        minusButton.style.transform = "translateX(5px)";
+        plusButton.style.transform = "translateX(-5px)";
+      } else {
+        // minusButton.style.display = "none";
+        // subContainer.style.width = "auto";
+        plusButton.style.transform = "translateX(0.1px)";
+        minusButton.style.transform = "translateX(-5px)";
+      }
+    }, 10)
+  }, [btn])
   
   // click "-" button
   function revertBody() {
     let mainBody = document.getElementById("body");
+    let buttonContainer = document.querySelector(".button-container");
+    let plusButton = document.querySelector(".plus-button");
     mainBody.classList.remove("change-body");
+    buttonContainer.style.width = "100px";
     setNewUser(false);
     setError(false);
     setName('');
     setTitle('');
+    setBtn(false);
   }
+
+  
 
   // when u submit form
   const generate = (event) => {
@@ -175,8 +206,10 @@ function App() {
         <h1 className="heading" data-aos="fade-in">Select a Todolist</h1>
       </div>
       <div className="button-container">
-        <button className="plus-button" onClick={(e) => changeBody(e)}>+</button>
-        {newUser ? <button className="exit-button" onClick={() => revertBody()}>-</button> : null}
+        <div className="button-sub-container">
+          <button className="plus-button" onClick={(e) => changeBody(e)}>+</button>
+          {newUser ? <button className="exit-button" onClick={() => revertBody()}>-</button> : null}
+        </div>
       </div>
      <main className="main-container">
    {newUser ?
