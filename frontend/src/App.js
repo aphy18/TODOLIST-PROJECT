@@ -19,6 +19,7 @@ function App() {
 
   // click button state animation
   let [btn, setBtn] = useState(false);
+  let [formState, setFormState] = useState(false);
 
   useEffect(() => {
     let welcomeMsg = document.querySelectorAll(".welcome-message-letter");
@@ -79,10 +80,11 @@ function App() {
   function changeBody(event) {
     let mainBody = document.getElementById("body");
     let buttonContainer = document.querySelector(".button-container");
+    let header = document.querySelector(".heading");
     setNewUser(true);
     mainBody.classList.add("change-body");
     buttonContainer.style.width = "150px";
-    // buttonContainer.style.justifyContent = "space-around";
+    header.style.color = "white";
     setBtn(true)
   }
 
@@ -91,31 +93,41 @@ function App() {
     let plusButton = document.querySelector(".plus-button");
     let minusButton = document.querySelector(".exit-button");
     setTimeout(() => {
-      if (btn === true) {
         minusButton.style.opacity = "1";
         minusButton.style.transform = "translateX(10px)";
         plusButton.style.transform = "translateX(-10px)";
         todoForm.style.transform = "translateY(30px)";
         todoForm.style.opacity = "1";
-      } else {
-        plusButton.style.transform = "translateX(0.1px)";
-        minusButton.style.transform = "translateX(-5px)";
-      }
+        setFormState(true);
     }, 1)
   }, [btn])
+
+  useEffect(() => {
+    setTimeout(() => {
+      let formHeader = document.querySelector(".form-header");
+      formHeader.style.transform = "translateX(65px)"
+      formHeader.style.opacity = "1";
+    }, 250)
+  }, [formState])
   
   // click "-" button
   function revertBody() {
     let mainBody = document.getElementById("body");
+    let header = document.querySelector(".heading");
     let buttonContainer = document.querySelector(".button-container");
     let plusButton = document.querySelector(".plus-button");
+    let minusButton = document.querySelector(".exit-button");
     mainBody.classList.remove("change-body");
+    header.style.color = "black";
     buttonContainer.style.width = "100px";
+    plusButton.style.transform = "translateX(0.1px)";
+    minusButton.style.transform = "translateX(-5px)";
     setNewUser(false);
     setError(false);
+    setBtn(false);
+    setFormState(false);
     setName('');
     setTitle('');
-    setBtn(false);
   }
 
   
@@ -212,6 +224,8 @@ function App() {
       </div>
      <main className="main-container">
    {newUser ?
+   <>
+    <h2 className="form-header">New Todo Form</h2>
      <form className="new-todo-form" onSubmit={(e) => generate(e)}>
        <div className="todo-section-form">
          <label>Todolist Title:</label>
@@ -230,6 +244,7 @@ function App() {
        {error ? <p className="error">{errorText}</p> : null}
        <button className="submit-form">New Todo</button>
      </form>
+     </>
    : null}
      <div className="name-container"></div>
      <div className="name-container"></div>
