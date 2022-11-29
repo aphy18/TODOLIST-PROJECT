@@ -78,7 +78,6 @@ function App() {
   // click "+" button
   function changeBody(event) {
     let mainBody = document.getElementById("body");
-    let todoForm = document.querySelector(".new-todo-form")
     let buttonContainer = document.querySelector(".button-container");
     setNewUser(true);
     mainBody.classList.add("change-body");
@@ -88,21 +87,21 @@ function App() {
   }
 
   useEffect(() => {
+    let todoForm = document.querySelector(".new-todo-form");
     let plusButton = document.querySelector(".plus-button");
     let minusButton = document.querySelector(".exit-button");
-    let subContainer = document.querySelector(".button-sub-container");
     setTimeout(() => {
       if (btn === true) {
         minusButton.style.opacity = "1";
-        minusButton.style.transform = "translateX(5px)";
-        plusButton.style.transform = "translateX(-5px)";
+        minusButton.style.transform = "translateX(10px)";
+        plusButton.style.transform = "translateX(-10px)";
+        todoForm.style.transform = "translateY(30px)";
+        todoForm.style.opacity = "1";
       } else {
-        // minusButton.style.display = "none";
-        // subContainer.style.width = "auto";
         plusButton.style.transform = "translateX(0.1px)";
         minusButton.style.transform = "translateX(-5px)";
       }
-    }, 10)
+    }, 1)
   }, [btn])
   
   // click "-" button

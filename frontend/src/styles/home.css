@@ -33,7 +33,7 @@
   justify-content: space-around;
   align-items: center;
   opacity: 1;
-  transition: transform 0.5s ease, opacity 0.4s ease;
+  transition: transform 0.5s ease, opacity 0.4s ease, background-color 0.1s ease;
 }
 
 .heading-container {
@@ -60,7 +60,6 @@
 .change-body {
   background-color: grey;
   opacity: 0.7;
-  transition: background-color 0.1s ease-out;
 }
 
 .plus-button,
@@ -84,7 +83,7 @@
   align-items: center;
   border-radius: 4px;
   transform: scale(0,0);
-  transition: transform 0.6s ease, width 0.3s ease;
+  transition: transform 0.6s ease, width 0.25s ease;
 }
 
 .button-sub-container {
@@ -99,21 +98,15 @@
 
 .plus-button {
   background-color: green;
-  transition: transform 0.4s ease;
+  transition: transform 0.2s ease;
 }
 
 .exit-button {
   background-color: red;
-  transition: transform 0.3s ease-in;
   display: inline;
   opacity: 0;
-  transition: opacity 0.3s ease, transform 0.4s ease;
+  transition: opacity 0.5s ease, transform 0.3s ease;
 }
-
-/* .exit-button {
-  margin-left: 15%;
-} */
-
 
 .main-container {
   width: 100%;
@@ -155,13 +148,19 @@
   position: absolute;
   top: 2%;
   left: 2%;
-  transition: transform 0.3s ease;
+  transform: translateY(-15px);
+  opacity: 0;
   border-radius: 10px;
   z-index: 2;
+  transition: transform 0.5s ease, opacity 0.2s ease;
 }
 
-.new-todo-form-translate {
-  transform: translateY(50px);
+.new-todo-form label {
+  font-size: 22px;
+}
+
+.new-todo-form input {
+  font-size: 18px;
 }
 
 .date {
@@ -179,6 +178,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+}
+
+.submit-form {
+  border-radius: 10px;
+  font-size: 18px;
 }
 
 .name-div {
