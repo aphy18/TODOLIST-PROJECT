@@ -21,6 +21,7 @@ function App() {
   let [btn, setBtn] = useState(false);
   let [formState, setFormState] = useState(false);
 
+  // timed animations that chain onto each other via state change
   useEffect(() => {
     let welcomeMsg = document.querySelectorAll(".welcome-message-letter");
     setTimeout(() => {
@@ -81,13 +82,18 @@ function App() {
     let mainBody = document.getElementById("body");
     let buttonContainer = document.querySelector(".button-container");
     let header = document.querySelector(".heading");
+    let nameDivs = document.querySelectorAll(".name-div");
     setNewUser(true);
     mainBody.classList.add("change-body");
     buttonContainer.style.width = "150px";
     header.style.color = "white";
+    for (let div of nameDivs) {
+      div.style.backgroundColor = "grey";
+    }
     setBtn(true)
   }
 
+  // plus + minus button animation, form translation
   useEffect(() => {
     let todoForm = document.querySelector(".new-todo-form");
     let plusButton = document.querySelector(".plus-button");
@@ -102,6 +108,7 @@ function App() {
     }, 1)
   }, [btn])
 
+  // header translation
   useEffect(() => {
     setTimeout(() => {
       let formHeader = document.querySelector(".form-header");
@@ -117,11 +124,15 @@ function App() {
     let buttonContainer = document.querySelector(".button-container");
     let plusButton = document.querySelector(".plus-button");
     let minusButton = document.querySelector(".exit-button");
+    let nameDivs = document.querySelectorAll(".name-div");
     mainBody.classList.remove("change-body");
     header.style.color = "black";
     buttonContainer.style.width = "100px";
     plusButton.style.transform = "translateX(0.1px)";
     minusButton.style.transform = "translateX(-5px)";
+    for (let div of nameDivs) {
+      div.style.backgroundColor = "white";
+    }
     setNewUser(false);
     setError(false);
     setBtn(false);
@@ -178,15 +189,15 @@ function App() {
       nameDiv.append(topDiv, bottomDiv);
       let nameDivs = document.querySelectorAll(".name-div");
       let nameDivsArr = Array.from(nameDivs);
-      console.log("all name divs --->", nameDivsArr)
       for (let i=0; i < nameDivsArr.length; i++) {
         if (nameDivsArr.indexOf(nameDivsArr[i]) % 2 === 0) {
-          nameDivsArr[i].classList.add("div-left-slide")
+          nameDivsArr[i].classList.add("div-left-slide");
         } else {
-          nameDivsArr[i].classList.add("div-left-slide")
+          nameDivsArr[i].classList.add("div-left-slide");
         }
       }
       setCounter(counter += 1);
+      
   
       // which container to append to
       if (counter <= 5) {
@@ -196,7 +207,11 @@ function App() {
       } else if (counter > 10 && counter <= 15) {
         nameContainerArr[2].append(nameDiv);
       }
-      revertBody()
+
+      setTimeout(() => {
+        nameDiv.classList.add("name-div-onload");
+      }, 50)
+      revertBody();
     }
   }
 
@@ -242,7 +257,7 @@ function App() {
          <span class="name-counter" style={name.length > 10 ? tooManyWords : withinRange}>{name.length}/10</span>
        </div>
        {error ? <p className="error">{errorText}</p> : null}
-       <button className="submit-form">New Todo</button>
+       <button className="submit-form">Submit</button>
      </form>
      </>
    : null}
